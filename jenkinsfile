@@ -1,0 +1,45 @@
+pipeline {
+    agent none
+
+    stages {
+        stage('Build') {
+            agent {
+                label 'build-agent'
+            }
+            when {
+                changeset "**/Dockerfile"
+            }
+            steps {
+                script {
+                    echo 'Building Docker Image...'
+                    docker.build('Airbnb-Tutorial')
+                }
+            }
+        }
+
+        stage('Test') {
+            agent {
+                label 'Test-agent'
+            }
+            when {
+                environment name: 'TESTING', value: 'true'
+                changeset "**/*.py"
+            }
+            steps {
+                echo 'Testing feature...'
+            }
+        }
+
+        stage('Deploy') {
+            agent {
+                label 'deploy-agent'
+            }
+            when {
+                branch 'master'
+            }
+            steps {
+                echo 'Deploying app...'
+            }
+        }
+    }
+}

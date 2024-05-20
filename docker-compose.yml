@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  flask-app:
+    build: .
+    ports:
+      - "5000:80"
+    environment:
+      - DATABASE_URL=postgresql://segun:example@empty-db:5434/empty_db
+    depends_on:
+      - production-db
+      - development-db
+      - empty-db
+
+  production-db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: example
+    ports:
+      - "5432:5432"
+
+  development-db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: example
+    command: postgres -p 5433
+    ports:
+      - "5433:5433"
+
+
+  empty-db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: example
+    command: postgres -p 5434
+    ports:
+      - "5434:5434"
+
+  adminer:
+    image: adminer
+    ports:
+      - "8081:8080"
