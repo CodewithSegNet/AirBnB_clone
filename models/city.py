@@ -7,3 +7,8 @@ class City(BaseModel):
         super().__init__(*args, **kwargs)
         self.state_id = ""
         self.name = ""
+
+    @classmethod
+    def count(cls):
+        """Returns the number of instances of the class"""
+        return len(cls.all())

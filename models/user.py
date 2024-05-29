@@ -12,3 +12,8 @@ class User(BaseModel):
         self.password = ""
         self.first_name = ""
         self.last_name = ""
+
+    @classmethod
+    def count(cls):
+        """Returns the number of instances of the class"""
+        return len(cls.all())

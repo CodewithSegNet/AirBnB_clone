@@ -9,3 +9,9 @@ class Review(BaseModel):
         self.city_id = ""
         self.user_id = ""
         self.text = ""
+    
+
+    @classmethod
+    def count(cls):
+        """Returns the number of instances of the class"""
+        return len(cls.all())

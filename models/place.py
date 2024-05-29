@@ -17,3 +17,8 @@ class Place(BaseModel):
         self.latitude = 0.0
         self.longitude = 0.0
         self.amenity_ids = []
+
+    @classmethod
+    def count(cls):
+        """Returns the number of instances of the class"""
+        return len(cls.all())

@@ -39,6 +39,11 @@ class BaseModel:
         from models import storage
         storage.save()
 
+    @classmethod
+    def count(cls):
+        """Returns the number of instances of the class"""
+        return len(cls.all())
+
     def to_dict(self):
         # Create a copy of the instance's dictionary of attributes
         dict_repr = self.__dict__.copy()
