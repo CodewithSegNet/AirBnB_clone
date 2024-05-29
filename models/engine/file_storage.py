@@ -3,6 +3,12 @@
 import json
 from models.base_model import BaseModel
 from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.reviews import Review
+
 
 
 class FileStorage:
@@ -30,13 +36,14 @@ class FileStorage:
             with open(self.__file_path, 'r') as file:
                 object_dict = json.load(file)
                 for key, value in object_dict.items():
-                    cls_name, obj_id = key.split(".")
-                    cls = globals().get(cls_name)
-                    if cls_name == "User":
-                        cls = User
+                    class_name = value['__class__']
+                    del value['__class__']
+                    cls = globals().get(class_name)
+                    if cls:
+                        instance = cls(**value)
+                        self.__objects[key] = instance
                     else:
-                        if cls:
-                            self.__objects[key] = cls(**value)
+                        print(f"Error: Class '{class_name}' not found. Skipping object creation.")
         except FileNotFoundError:
             pass
 
