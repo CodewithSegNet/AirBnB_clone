@@ -2,6 +2,7 @@
 
 import json
 from models.base_model import BaseModel
+from models.user import User
 
 
 class FileStorage:
@@ -31,8 +32,11 @@ class FileStorage:
                 for key, value in object_dict.items():
                     cls_name, obj_id = key.split(".")
                     cls = globals().get(cls_name)
-                    if cls:
-                        self.__objects[key] = cls(**value)
+                    if cls_name == "User":
+                        cls = User
+                    else:
+                        if cls:
+                            self.__objects[key] = cls(**value)
         except FileNotFoundError:
             pass
 
