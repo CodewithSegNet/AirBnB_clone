@@ -43,4 +43,3 @@ At the end of this project, you are expected to be able to explain to anyone, wi
 ### AUTHOR
 - [Olusegun Emmanuel](https://github.com/CodewithSegNet)
 - [Shogo Akadiri](https://github.com/ShogoMark)
-
